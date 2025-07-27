@@ -1,10 +1,10 @@
 
 export interface IUser {
-    id: string;  
-    name: string;
+    _id: string;  
+    fullName: string;
     email: string;
-    phone: string;
     password: string;
+    profilePic: string;
     createdAt: Date;
     updatedAt: Date;
 }

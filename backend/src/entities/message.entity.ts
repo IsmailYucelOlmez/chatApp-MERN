@@ -1,14 +1,12 @@
-import { IUser } from "./user.entity";
-
+import mongoose from "mongoose";
 
 export interface IMessage {
-    id: string;
-    content: string;
-    sender: IUser;
-    receiver: IUser;
+    _id: string;
+    text: string;
+    image: string;
+    senderId: mongoose.Schema.Types.ObjectId;
+    receiverId: mongoose.Schema.Types.ObjectId;
     isRead: boolean;
-    isDeleted: boolean;
-    isEdited: boolean;
     createdAt: Date;
     updatedAt: Date;
 }

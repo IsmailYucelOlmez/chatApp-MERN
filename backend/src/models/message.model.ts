@@ -3,36 +3,21 @@ import { IMessage } from "../entities/message.entity";
 
 
 const messageSchema = new Schema<IMessage>({
-    content: {
+    senderId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true,
+    },
+    receiverId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true,
+    },
+    text: {
         type: String,
-        required: true,
     },
-    sender: {
-        type: Schema.Types.ObjectId,
-        ref: "User",
-        required: true,
-    },
-    receiver: {
-        type: Schema.Types.ObjectId,
-        ref: "User",
-        required: true,
-    },
-    chat: {
-        type: Schema.Types.ObjectId,
-        ref: "Chat",
-        required: true,
-    },
-    isRead: {
-        type: Boolean,
-        default: false,
-    },
-    isDeleted: {
-        type: Boolean,
-        default: false,
-    },
-    isEdited: {
-        type: Boolean,
-        default: false,
+    image: {
+        type: String,
     },
 }, {
     versionKey: false,
