@@ -1,12 +1,13 @@
 // In this file you can configure migrate-mongo
+require("dotenv").config();
 
-export const config = {
+module.exports = {
   mongodb: {
     // TODO Change (or review) the url to your MongoDB:
-    url: "mongodb://localhost:27017/chat-app",
+    url: process.env.MONGO_DB_URI || "mongodb://localhost:27017/chatsappdb",
 
     // TODO Change this to your database name:
-    databaseName: "chat-app",
+    databaseName: "chatsappdb",
 
     options: {
       useNewUrlParser: true, // removes a deprecation warning when connecting

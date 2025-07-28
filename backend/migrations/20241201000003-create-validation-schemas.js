@@ -3,6 +3,20 @@
  */
 module.exports = {
   async up(db) {
+    // Create collections if they don't exist
+    const collections = await db.listCollections().toArray();
+    const collectionNames = collections.map(col => col.name);
+    
+    if (!collectionNames.includes('users')) {
+      await db.createCollection('users');
+      console.log('Created users collection');
+    }
+    
+    if (!collectionNames.includes('messages')) {
+      await db.createCollection('messages');
+      console.log('Created messages collection');
+    }
+
     // Create validation schema for users collection
     await db.command({
       collMod: "users",
@@ -91,17 +105,24 @@ module.exports = {
 
   async down(db) {
     // Remove validation schemas
-    await db.command({
-      collMod: "users",
-      validator: {},
-      validationLevel: "off"
-    });
+    const collections = await db.listCollections().toArray();
+    const collectionNames = collections.map(col => col.name);
+    
+    if (collectionNames.includes('users')) {
+      await db.command({
+        collMod: "users",
+        validator: {},
+        validationLevel: "off"
+      });
+    }
 
-    await db.command({
-      collMod: "messages", 
-      validator: {},
-      validationLevel: "off"
-    });
+    if (collectionNames.includes('messages')) {
+      await db.command({
+        collMod: "messages", 
+        validator: {},
+        validationLevel: "off"
+      });
+    }
 
     console.log('Validation schemas removed successfully');
   }
